@@ -5,7 +5,7 @@ import time
 import re
 
 
-def is_japanese(word):
+def is_japanese(word) -> bool:
     if word.isspace():
         return False
 
@@ -13,11 +13,11 @@ def is_japanese(word):
         "[!\"#$%&'\\\\()*+,-./:;<=>?@[\\]^_`{|}~「」〔〕“”〈〉『』【】＆＊・（）＄＃＠。、？！｀＋￥％]"
     )
     word = re.sub(code_regex, "", word)
-    # 正規表現の最適化
+    # 入力値に英数字が含まれないか
     return not re.search(r"[0-9a-zA-Z０-９Ａ-Ｚａ-ｚ]", word)
 
 
-def get_word():
+def get_word() -> str:
     while True:
         word = input("翻訳したい日本語単語を入力してください")
         if is_japanese(word):
@@ -31,7 +31,7 @@ def set_driver():
     return webdriver.Chrome(options=options)
 
 
-def get_result(url, word):
+def get_result(url: str, word: str):
     driver = set_driver()
     try:
         driver.get(url)
